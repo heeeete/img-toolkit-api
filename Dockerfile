@@ -20,5 +20,5 @@ COPY remove_bg.py .
 # 6) 환경 변수 설정 (PORT는 Render가 자동으로 주입)
 ENV PORT 5000
 
-# 7) 컨테이너가 실행될 때 Gunicorn 사용
-CMD ["gunicorn", "remove_bg:app", "--bind", "0.0.0.0:5000", "--workers", "1"]
+# CMD를 배열 형태가 아닌 sh -c "..." 형태로 바꾸면, $PORT를 해석합니다.
+CMD ["sh", "-c", "gunicorn remove_bg:app --bind 0.0.0.0:$PORT --workers 1"]
