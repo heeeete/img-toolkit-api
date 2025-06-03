@@ -17,7 +17,7 @@ def remove_bg():
     # 1) 입력 이미지 바이트 읽기
     img_bytes = file.read()
 
-    model_name = "isnet-general-use"  # 여기에 모델 이름을 넣자
+    model_name = "u2net"  # 여기에 모델 이름을 넣자
     session = new_session(model_name)
 
     # 2) rembg 로 배경 제거 (bytes → bytes)
