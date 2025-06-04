@@ -1,10 +1,15 @@
+import logging
+
 from flask import Flask, request, send_file, abort
 from rembg import remove, new_session
 from flask_cors import CORS
 import io, os
 
+
+
 app = Flask(__name__)
 CORS(app)
+app.logger.setLevel(logging.INFO)
 
 @app.route("/remove-background", methods=["POST"])
 def remove_bg():

@@ -9,10 +9,11 @@ COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 4) (선택) rembg 모델 캐시를 미리 생성하려면 주석 해제
-# RUN python - <<EOF
-# from rembg import new_session
-# new_session("silueta")
-# EOF
+RUN python - <<EOF
+from rembg import new_session
+model_name = "u2net"  # 여기에 모델 이름을 넣자
+new_session(model_name)
+EOF
 
 # 5) 애플리케이션 코드 복사
 COPY remove_bg.py .
@@ -21,4 +22,5 @@ COPY remove_bg.py .
 ENV PORT 5000
 
 # CMD를 배열 형태가 아닌 sh -c "..." 형태로 바꾸면, $PORT를 해석합니다.
-CMD ["sh", "-c", "gunicorn remove_bg:app --bind 0.0.0.0:$PORT --workers 1"]
+CMD ["sh", "-c", "gunicorn remove_bg:app --bind 0.0.0.0:$PORT --workers 1 --log-level info --access-logfile -"]
+
